@@ -13,22 +13,28 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useAuth } from '../composables/useAuth'
+import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
 const { register, login, logout } = useAuth()
 const errorMessage = ref('')
+const router = useRouter()
 
 async function handleLogin() {
   const result = await login(email.value, password.value)
   if (result !== undefined) {
     errorMessage.value = result
+  } else {
+    router.push('/')
   }
 }
 async function handleRegister() {
   const result = await register(email.value, password.value)
   if (result !== undefined) {
     errorMessage.value = result
+  } else {
+    router.push('/')
   }
 }
 </script>
