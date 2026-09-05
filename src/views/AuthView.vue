@@ -17,7 +17,7 @@ import { useRouter } from 'vue-router'
 
 const email = ref('')
 const password = ref('')
-const { register, login, logout } = useAuth()
+const { register, login } = useAuth()
 const errorMessage = ref('')
 const router = useRouter()
 
@@ -37,6 +37,7 @@ async function handleRegister() {
     router.push('/')
   }
 }
+
 </script>
 
 <style></style>
