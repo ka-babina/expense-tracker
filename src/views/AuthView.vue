@@ -37,7 +37,6 @@ async function handleRegister() {
     router.push('/')
   }
 }
-
 </script>
 
 <style></style>
