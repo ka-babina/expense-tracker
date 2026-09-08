@@ -21,6 +21,4 @@ async function handleLogout() {
 }
 </script>
 
-<style>
-
-</style>
+<style></style>
