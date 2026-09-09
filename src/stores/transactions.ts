@@ -1,4 +1,4 @@
-import { collection, addDoc, getDocs } from 'firebase/firestore'
+import { collection, addDoc, doc, getDocs, deleteDoc } from 'firebase/firestore'
 import { db } from '../firebase/config'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -19,6 +19,24 @@ export const useTransactionsStore = defineStore('transactions', () => {
     const docRef = await addDoc(collection(db, 'transactions'), newTransaction)
     transactions.value.push({ id: docRef.id, ...newTransaction })
   }
+  async function deleteTransaction(id: string) {
+    await deleteDoc(doc(db, 'transactions', id))
+    transactions.value = transactions.value.filter((t) => t.id !== id)
+  }
+  async function fetchCategories() {
+    const querySnapshot = await getDocs(collection(db, 'categories'))
+    categories.value = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    })) as Category[]
+  }
 
-  return { transactions, categories, fetchTransactions, addTransaction }
+  return {
+    transactions,
+    categories,
+    fetchTransactions,
+    addTransaction,
+    deleteTransaction,
+    fetchCategories,
+  }
 })
